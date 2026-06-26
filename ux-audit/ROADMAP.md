@@ -21,6 +21,7 @@ Build a functional, Claude-Code-native UX audit skill backed by Claude in Chrome
 Make the skill installable in any project with a single command, without copying files manually.
 
 - [ ] Define install mechanism (e.g. `npx ux-audit-skill init`, shell script, or Claude Code hook)
+- [ ] Investigate and resolve Snyk high-risk flag raised during `npx skills add` distribution test
 - [ ] Pin skill version so projects can lock and upgrade explicitly
 - [ ] Document install steps in `README.md`
 - [ ] Provide a minimal example scenario so teams can validate their install immediately

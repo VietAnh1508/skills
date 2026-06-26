@@ -2,12 +2,22 @@
 
 A collection of custom Claude Code skills. Each skill is a slash command that extends Claude's behavior in a specific, reusable way.
 
+## Install
+
+```bash
+npx skills add VietAnh1508/skills
+# Then pick the skills you want, and which coding agents you want to install them on
+
+# Install specific skill
+npx skills add VietAnh1508/skills --skill ux-audit
+```
+
 ## Skills
 
-| Skill | Command | Description |
-|---|---|---|
-| [socratic-tutor](./socratic-tutor/) | `/socratic-tutor` | A Socratic learning companion that only asks questions — never explains. Activate by saying "I just learned about X" or "I want to learn about X". |
-| [ux-audit](./ux-audit/) | `/ux-audit` | AI-powered UX audit. Give it a scenario and it navigates the app like a first-time user, captures screenshots at each key state, and writes a structured findings report. |
+| Skill                               | Command           | Description                                                                                                                                                               |
+| ----------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [socratic-tutor](./socratic-tutor/) | `/socratic-tutor` | A Socratic learning companion that only asks questions — never explains. Activate by saying "I just learned about X" or "I want to learn about X".                        |
+| [ux-audit](./ux-audit/)             | `/ux-audit`       | AI-powered UX audit. Give it a scenario and it navigates the app like a first-time user, captures screenshots at each key state, and writes a structured findings report. |
 
 ---
 
@@ -56,21 +66,25 @@ Type `skip` or `?` to move past a question. The tutor will set it aside and cont
 ### Quick start
 
 **Single scenario file:**
+
 ```
 /ux-audit path/to/my-scenario.md
 ```
 
 **All scenarios in a directory (runs in parallel):**
+
 ```
 /ux-audit path/to/scenarios/
 ```
 
 **Inline — describe the scenario in your message:**
+
 ```
 /ux-audit  ← then describe what to test
 ```
 
 **Static review — share screenshots directly:**
+
 ```
 /ux-audit  ← then attach screenshots
 ```
@@ -94,18 +108,19 @@ Keep scenario files in your project — they describe app-specific flows.
 
 ### Scenario file fields
 
-| Field | Required | Description |
-|---|---|---|
-| `App URL` | Yes | Base URL of the running app |
-| `App Name` | Yes | Short name used in the report title |
-| `App Persona` | Yes | One sentence describing the app and its users |
-| `Auth` | No | `email: x / password: y` — omit for public pages |
-| `Session` | No | `fresh` (default) or `authenticated` |
-| `Viewport` | No | `desktop` (default) or `mobile` (390px) |
-| `Output` | No | Report path — defaults to `UX_AUDIT.md` |
+| Field         | Required | Description                                      |
+| ------------- | -------- | ------------------------------------------------ |
+| `App URL`     | Yes      | Base URL of the running app                      |
+| `App Name`    | Yes      | Short name used in the report title              |
+| `App Persona` | Yes      | One sentence describing the app and its users    |
+| `Auth`        | No       | `email: x / password: y` — omit for public pages |
+| `Session`     | No       | `fresh` (default) or `authenticated`             |
+| `Viewport`    | No       | `desktop` (default) or `mobile` (390px)          |
+| `Output`      | No       | Report path — defaults to `UX_AUDIT.md`          |
 
 ### Requirements
 
 - App server running at the specified URL
 - [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude-in-chrome/aaocglkjkiohbbkgdibmeenknfghiobf) installed with permissions for the app's origin
 - Test account that doesn't require a password change on first login
+
