@@ -13,6 +13,8 @@ description: >
   "audit". Invoke for any request involving usability review, design feedback,
   first-time-user experience, or accessibility checks on a running app or
   shared screenshots.
+metadata:
+  version: 0.1.0-alpha
 ---
 
 # UX Audit Skill — Orchestrator
