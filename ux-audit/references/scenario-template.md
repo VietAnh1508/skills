@@ -6,11 +6,17 @@
 **App Name:** MyApp
 **App Persona:** One sentence describing the app and who uses it.
 **Auth:** email: test@example.com / password: changeme
+
+<!-- Auth: use a dedicated test account created solely for this audit — never a personal or production account.
+     The AI will sign in with these credentials.
+     Omit this field entirely for public pages (landing pages, product listings, etc.) that do not require sign-in. -->
+
 **Session:** fresh
 
-<!-- Session options:
+<!-- Session options (only relevant when Auth is present):
      fresh         — log out any existing session before starting; use when the scenario tests sign-in or onboarding
      authenticated — sign in silently if not already logged in, then navigate to App URL; use when the scenario starts mid-app
+     Omit alongside Auth when the scenario is entirely public-facing.
 -->
 
 **Viewport:** desktop

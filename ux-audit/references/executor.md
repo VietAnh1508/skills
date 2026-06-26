@@ -49,7 +49,9 @@ If the scenario specifies `Viewport: mobile`, call `resize_window` to set width 
 
 ### 5. Set up session state
 
-Handle the session based on the `Session:` field (default: `fresh` if omitted).
+If the scenario has no `Auth:` field (or `Auth: none`), the app is entirely public-facing — skip this step and navigate directly to the App URL in step 6.
+
+Otherwise, handle the session based on the `Session:` field (default: `fresh` if omitted).
 
 **`Session: fresh`** — the scenario tests auth or onboarding from a cold start:
 - Navigate to the App URL and take a screenshot.
