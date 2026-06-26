@@ -19,7 +19,7 @@ description: >
 
 This skill orchestrates UX audits. It reads 1 or N scenarios, spawns an executor sub-agent per scenario (running in parallel), collects their findings files, and synthesises the final report.
 
-For static reviews (screenshots only), no sub-agents are used — see [Static review execution](#static-review-execution).
+For static reviews (screenshots only), no sub-agents are used — see Mode C below.
 
 ---
 
@@ -33,7 +33,7 @@ Load the Chrome tab tool via ToolSearch:
 select:mcp__claude-in-chrome__tabs_context_mcp
 ```
 
-Call `tabs_context_mcp`. If the call errors or times out, the extension is unavailable — tell the user to install the Claude in Chrome extension and grant it permissions for the app's origin, then retry. If they'd rather not, offer a [static review](#static-review-execution) instead. Do not proceed with a live audit until the extension check passes.
+Call `tabs_context_mcp`. If the call errors or times out, the extension is unavailable — tell the user to install the Claude in Chrome extension and grant it permissions for the app's origin, then retry. If they'd rather not, offer a static review instead (read `<skill-dir>/references/static-review.md`). Do not proceed with a live audit until the extension check passes.
 
 ### 2. Confirm with the user
 
@@ -70,7 +70,7 @@ User describes the scenario in conversation. Extract app URL, credentials, and j
 
 ### Mode C — Static review (screenshots only)
 
-Used when the user directly shares screenshots without a running app. Skip the pre-flight checklist and orchestrator steps entirely — go straight to [Static review execution](#static-review-execution).
+Used when the user directly shares screenshots without a running app. Skip the pre-flight checklist and orchestrator steps entirely — read `<skill-dir>/references/static-review.md` and follow those instructions.
 
 ---
 
@@ -121,58 +121,16 @@ Once all agents have completed, read each findings file. Check the `Status:` fie
 
 ### 4. Synthesise and write the report
 
-Read the report template from `<skill-dir>/assets/report-template.md`. Fill in `{date}` with today's date (YYYY-MM-DD format).
+Read `<skill-dir>/assets/report-single.md` for a single scenario, or `<skill-dir>/assets/report-multi.md` for multiple scenarios. Fill in `{date}` with today's date (YYYY-MM-DD format).
 
-**Single scenario:** Format the findings file into the single-scenario template. Output path:
+**Single scenario:** Format the findings file into the template. Output path:
 - Use the `Output:` field from the scenario file if present
 - Otherwise write to `<scenario-directory>/<scenario-basename>-audit.md`
 - Otherwise write to `UX_AUDIT.md` in the current working directory
 
 **Multiple scenarios:** Use the multi-scenario template section. Identify cross-scenario findings — issues where the same element and dimension appear in 2 or more scenarios' findings. List those first in a "Cross-scenario findings" section, then include each scenario's remaining findings underneath. Output path defaults to `UX_AUDIT.md`; honour an `Output:` field on the first scenario file if present.
 
----
-
-## Static review execution
-
-Use this path for Mode C — evaluating screenshots instead of a live browser session.
-
-### 1. Gather screenshots
-
-If the user has already shared images, proceed. If not, ask:
-
-> "Please share screenshots of each key screen in the flow, labeled by state (e.g. 'Sign-in page', 'Home after login', 'Error state'). If you have before/after shots for any interactions, include both."
-
-### 2. Evaluate each screenshot
-
-Apply these dimensions — all work from screenshots alone:
-
-| Dimension              | Evaluable? |
-| ---------------------- | ---------- |
-| Visual hierarchy       | ✅ Yes |
-| Visual design          | ✅ Yes |
-| CTA clarity            | ✅ Yes |
-| Empty / loading states | ✅ Yes (if screenshot shows it) |
-| Feedback after actions | ✅ If before/after shots provided — otherwise note the gap |
-| Information density    | ✅ Yes |
-| Copy quality           | ✅ Yes |
-| Mobile readiness       | ✅ If mobile screenshots provided |
-| Friction               | ✅ Infer from number of steps visible |
-| Confusion              | ✅ Yes |
-
-### 3. Accessibility — partial coverage only
-
-Only colour contrast and tap target size can be evaluated from screenshots. Note this once at the top of any accessibility findings:
-
-> _DOM-level accessibility checks (unlabelled elements, alt text, heading structure, keyboard focus) require a live session and could not be run in this static review._
-
-### 4. Write the report
-
-Use the single-scenario report template. Append `(Static review)` to the scenario name in the title. Add one sentence in the Executive Summary noting that DOM-level accessibility checks were not performed.
-
----
-
-## Rules (for synthesis step)
-
+When writing the report:
 - Every finding must name an **exact UI element** with a **concrete suggestion**.
 - Skip dimensions that are fine — do not pad with neutral observations.
 - Cross-scenario deduplication: if the same issue appears in multiple scenarios, list it once in the cross-scenario section and reference it by name in each scenario's section.
