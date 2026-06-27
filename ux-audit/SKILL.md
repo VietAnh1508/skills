@@ -27,29 +27,25 @@ For static reviews (screenshots only), no sub-agents are used — see Mode C bel
 
 ## Pre-flight checks
 
-### 1. Verify Chrome extension
+### 1. Browser preflight — extension and URL reachability
 
-Load the Chrome tab tool via ToolSearch:
+Load the Chrome tools needed for preflight via ToolSearch:
 
 ```
-select:mcp__claude-in-chrome__tabs_context_mcp
+select:mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_close_mcp
 ```
 
-Call `tabs_context_mcp`. If the call errors or times out, the extension is unavailable — tell the user to install the Claude in Chrome extension and grant it permissions for the app's origin, then retry. If they'd rather not, offer a static review instead (read `<skill-dir>/references/static-review.md`). Do not proceed with a live audit until the extension check passes.
+Call `tabs_create_mcp` to open a temporary preflight tab. If this call errors, the Chrome extension is unavailable — tell the user to install the Claude in Chrome extension and grant it permissions for the app's origin. Offer a static review (`<skill-dir>/references/static-review.md`) as an alternative. Do not proceed with a live audit until this succeeds.
 
-### 2. Ping the app URL(s)
+For each unique scenario URL, call `navigate` to load it in the preflight tab, then call `read_page` to inspect the result. If the page content contains browser network-error markers — `ERR_CONNECTION_REFUSED`, `ERR_NAME_NOT_RESOLVED`, `net::ERR_`, or `This site can't be reached` — the server is not reachable. Stop and tell the user:
 
-For each scenario URL, run:
+> Server not reachable at `<url>`. If this is a local dev server, start it first (try `/run` if you're in Claude Code), then re-run the audit.
 
-```bash
-curl -s -o /dev/null -w "%{http_code}" --max-time 5 <url>
-```
+Once all URLs pass, close the preflight tab with `tabs_close_mcp`. The executor agents each create their own fresh tabs.
 
-If the result is `000` (connection refused or timeout), stop and tell the user the server is not reachable at that URL before proceeding.
+### 2. Confirm with the user
 
-### 3. Confirm with the user
-
-Once the URL check passes, ask the user to confirm before proceeding.
+Once the browser preflight passes, ask the user to confirm before proceeding.
 
 Skip this step entirely if **none** of the scenarios have an `Auth:` field — public-facing audits need no sign-in confirmation.
 
