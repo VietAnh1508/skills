@@ -11,7 +11,7 @@ You have been spawned by the ux-audit orchestrator to run a single scenario and 
 The orchestrator passes you:
 
 - **Scenario config** — all fields from the scenario file (App URL, App Name, App Persona, Auth, Session, Viewport, scenario steps)
-- **Findings output path** — where to write your findings, e.g. `/tmp/ux-audit-core-loop-findings.md`
+- **Findings output path** — where to write your findings, e.g. `<skill-dir>/tmp/ux-audit-core-loop-findings.md`
 
 ---
 

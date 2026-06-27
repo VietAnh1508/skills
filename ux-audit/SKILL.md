@@ -13,6 +13,11 @@ description: >
   "audit". Invoke for any request involving usability review, design feedback,
   first-time-user experience, or accessibility checks on a running app or
   shared screenshots.
+compatibility: >
+  Requires Claude Code. Live audits require the Claude in Chrome extension
+  installed in Chrome with permissions granted for the app's origin. The app
+  under test must be reachable at the specified URL. Static reviews
+  (screenshots only) have no browser dependency.
 metadata:
   version: 0.1.0-alpha
 ---
@@ -98,7 +103,7 @@ Note the absolute path of the directory containing this SKILL.md file — call i
 Read every scenario file (Mode A / A-multi) or parse the inline description (Mode B). For each scenario, compute a slug for its findings file:
 
 - Scenario name → lowercase, spaces to hyphens, e.g. `core-loop`
-- Findings path: `/tmp/ux-audit-<slug>-findings.md`
+- Findings path: `<skill-dir>/tmp/ux-audit-<slug>-findings.md`
 
 ### 2. Spawn executor agents
 
@@ -119,7 +124,7 @@ Scenario config:
 Scenario steps:
 <paste the scenario steps verbatim>
 
-Write your findings to: /tmp/ux-audit-<slug>-findings.md
+Write your findings to: <skill-dir>/tmp/ux-audit-<slug>-findings.md
 ```
 
 **Spawn all agents in the same message** so they run in parallel. Do not wait for one to finish before spawning the next.
