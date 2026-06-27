@@ -16,7 +16,7 @@ npx skills add VietAnh1508/skills --skill ux-audit
 
 | Skill                               | Command           | Description                                                                                                                                                               |
 | ----------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [socratic-tutor](./socratic-tutor/) | `/socratic-tutor` | A Socratic learning companion that only asks questions — never explains. Activate by saying "I just learned about X" or "I want to learn about X".                        |
+| [socratic-tutor](./socratic-tutor/) | `/socratic-tutor` | A Socratic learning companion that only asks questions — never explains. Activate by saying "I just learned about X", "I want to learn about X", or "explain it like I'm 5". |
 | [ux-audit](./ux-audit/)             | `/ux-audit`       | AI-powered UX audit. Give it a scenario and it navigates the app like a first-time user, captures screenshots at each key state, and writes a structured findings report. |
 
 ---
@@ -42,6 +42,13 @@ The tutor will ask where to start, then follow your explanation with questions t
 > "I keep hearing about X but I don't really know what it is."
 
 The tutor won't lecture. It'll ask what drew you to the topic, what you already suspect, what you know that might be adjacent — until a natural starting point emerges.
+
+**If you want to test whether you can explain something without jargon (ELI5 mode):**
+
+> "Explain it like I'm 5."
+> "ELI5: I want to teach you about X."
+
+The tutor plays a curious 5-year-old who understands no jargon and can only picture concrete, physical things. Every technical term gets challenged. Every abstract description gets pushed toward something touchable. If you can explain it to a 5-year-old, you own it.
 
 ### What to expect
 
