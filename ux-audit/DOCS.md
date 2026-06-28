@@ -4,6 +4,16 @@ An automated UX auditor that navigates your app like a first-time user. Give it 
 
 Works for any web app: authenticated flows, onboarding, checkout, settings, anything with a user journey worth testing.
 
+## What this is (and isn't)
+
+`ux-audit` is a **design review tool**, not a test suite. It does not assert correctness, check for regressions, or verify that your app behaves as specified. It won't replace end-to-end, integration, or UI tests — those tell you whether your app *works*; this tells you whether it *feels right to use*.
+
+The audit walks a user journey through a real browser, evaluates each screen against UX and UI principles, and surfaces friction, clarity issues, and interaction problems that automated tests typically miss: confusing labels, awkward flows, weak visual hierarchy, missing feedback, and similar experience gaps.
+
+Use it when you want a critical eye on a flow from the user's perspective, not when you need to verify functional correctness.
+
+---
+
 ## Quick start
 
 **Single scenario file:**
